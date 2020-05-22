@@ -1,22 +1,27 @@
 package com.hkbp.jtn.online;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
 
     private WebView webviewku;
+
+    RelativeLayout errorLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         webviewku = (WebView)findViewById(R.id.WebView1);
+        errorLayout = (RelativeLayout)findViewById(R.id.errorLayout);
 
         WebSettings websettingku = webviewku.getSettings();
 
@@ -43,7 +49,13 @@ public class MainActivity extends AppCompatActivity {
         webviewku.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
         webviewku.loadUrl("https://www.hkbpjtn.online/");
-        webviewku.setWebViewClient(new WebViewClient());
+        webviewku.setWebViewClient(new myWebClient());
+
+
+
+
+
+
     }
 
     @Override
@@ -70,5 +82,29 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.show();}
 
 
+    }
+
+    public class myWebClient extends WebViewClient{
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return super.shouldOverrideUrlLoading(view, url);
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+            errorLayout.setVisibility(View.VISIBLE);
+            view.setVisibility(View.GONE);
+        }
     }
 }
