@@ -2,6 +2,17 @@
 
 Changelog:
 
+0.8.2:
+- Add additional text to No Internet Connection, since it appears after downloading PDF, even the connection is available.
+- Bring ability to watch YouTube video in Fullscreen-Landscape.
+- Write code to open YouTube link in app (not working yet - needs improvement).
+- Removed useless code.
+- Bug fixes and other improvements.
+
+0.8.1:
+- Removed useless code.
+- Bug fixes and other improvements.
+
 0.8:
 - Bring back 'brought to you by HKBP Jatinegara' footer Splashscreen notes
 - Revert HKBPJTN Online Logo without HKBP Logo
