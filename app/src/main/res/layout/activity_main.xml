@@ -11,7 +11,17 @@
     <WebView
         android:id="@+id/WebView1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></WebView>
+        android:layout_height="fill_parent">
+
+
+    </WebView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </ProgressBar>
 
 
 
