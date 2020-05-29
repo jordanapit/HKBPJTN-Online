@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
@@ -37,6 +38,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -46,7 +48,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 //CODINGNYA MULAI DARI SINI
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     //NGASIH PERIJINAN DI AWAL UNTUK CEK PERMISSION
     @RequiresApi(api = Build.VERSION_CODES.P)
     private static final int MY_PERMISSION_REQUEST_CODE = 123;
@@ -57,19 +59,20 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private Activity mActivity;
     private RelativeLayout mRootLayout;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     //CODING DI DALAM
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //NGASIH TAU YANG MANA YANG ADA DI LAYOUT
         webviewku = (WebView)findViewById(R.id.WebView1);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
-        //NGATUR WEBSETTING DARI WEBVIEWNYA
+        //NGATUR WEBSETTING DAN WEBVIEW
         websettingku = webviewku.getSettings();
         websettingku.setJavaScriptEnabled(true);
         websettingku.setAllowFileAccess(true);
@@ -79,11 +82,22 @@ public class MainActivity extends AppCompatActivity {
         websettingku.setLoadWithOverviewMode(true);
         websettingku.setUseWideViewPort(true);
 
-
-
-        //UNTUK TANDA APAKAH HPNYA ADA KONEKSI INTERNET ATAU ENGGAK
+        //WEB VIEW CLIENT
         webviewku.setWebViewClient(new WebViewClient() {
-            public void onReceivedError(WebView webView, int errorCode, String description, String failingUrl) {
+            //UNTUK TANDA APAKAH HPNYA ADA KONEKSI INTERNET ATAU ENGGAK
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+
+                Log.d("error code", " " + String.valueOf(errorCode));
+
+                if (errorCode == -2)                                                                //errorCode 2 -> Server or proxy hostname lookup failed (no connection)
+                    // show to the user whatever you want to show, for example, a local html page:
+                    view.loadUrl("file:///android_asset/index.html");
+            }
+
+            //INI JUGA UNTUK KONEKSI MATI ATAU ENGGA, TAPI KURANG COCOK
+            /*public void onReceivedError(WebView webView, int errorCode, String description, String failingUrl) {
                 try {
                     webView.stopLoading();
                 } catch (Exception e) {
@@ -106,26 +120,21 @@ public class MainActivity extends AppCompatActivity {
                 });
                 alertDialog.show();
                 super.onReceivedError(webView, errorCode, description, failingUrl);
-            }
+            }*/
+
             //BIKIN YOUTUBE APP KEBUKA
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.contains("youtu.be")){
-
-                    int indexStart = url.indexOf("?v=")+3;
-                    int indexEnd = url.indexOf("&", indexStart);
-                    if(indexEnd<indexStart)
-                        return false;
-                    String videoId = url.substring(indexStart,indexEnd);
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://"+videoId)));
-
+            public boolean shouldOverrideUrlLoading(WebView wv, String url) {
+                if(url.startsWith("vnd.youtube:") || url.startsWith("mailto:")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
+
+
         });
 
         //UNTUK NGASIH TAU DI WEBVIEWNYA BOLEH/GAK BOLEH NGAPAIN AJA
@@ -196,9 +205,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //SWIPE REFRESH
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
-
-
 
     //INI UNTUK NGASIH PESAN KALAU KITA MAU KELUAR DARI APP
     @Override
@@ -301,6 +311,19 @@ public class MainActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(3846);
         }
     }
+
+    //SWIPE REFRESH
+    @Override
+    public void onRefresh() {
+        webviewku.reload();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+
+
+
+
+
 
 
 

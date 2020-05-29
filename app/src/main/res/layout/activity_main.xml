@@ -5,24 +5,25 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.hkbp.jtn.online.MainActivity">
 
-
-    <WebView
-        android:id="@+id/WebView1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-
-    </WebView>
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <WebView
+            android:id="@+id/WebView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </WebView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content">
     </ProgressBar>
-
 
 
 </RelativeLayout>
