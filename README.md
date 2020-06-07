@@ -5,6 +5,9 @@ Make sure that you have YouTube App installed on your device.
 
 Changelog:
 
+0.8.4.1:
+- Testing a new notification icon (not worked yet).
+
 0.8.4:
 - Bring ability to send notification.
 - Removed useless code.
