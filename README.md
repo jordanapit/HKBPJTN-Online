@@ -5,6 +5,11 @@ Make sure that you have YouTube App installed on your device.
 
 Changelog:
 
+0.8.4:
+- Bring ability to send notification.
+- Removed useless code.
+- Bug fixes and other improvements.
+
 0.8.3:
 - Replace No Internet Connection dialog with No Internet Connection page.
 - Bring ability to swipe up to refresh page.
