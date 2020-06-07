@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "98611897790",
+    "firebase_url": "https://hkbp-jtn-online.firebaseio.com",
+    "project_id": "hkbp-jtn-online",
+    "storage_bucket": "hkbp-jtn-online.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98611897790:android:323a5ff855c664bfac45ef",
+        "android_client_info": {
+          "package_name": "com.hkbp.jtn.online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98611897790-sjdur9pndqd9iph2qadfoo65d3hmn71e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGKZUE_ezBmZJQ9CWmHK5QovaIqhpBEMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98611897790-sjdur9pndqd9iph2qadfoo65d3hmn71e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
