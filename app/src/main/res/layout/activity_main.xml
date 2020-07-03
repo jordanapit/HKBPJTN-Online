@@ -8,22 +8,74 @@
     android:orientation="vertical"
     tools:context="com.hkbp.jtn.online.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/frame_settings"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/main_nav"
+        android:background="#FFFFFF"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/assistant_bold"
+            android:text="Pengaturan"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="60dp"
+            android:checked="true"
+            android:clickable="false"
+            android:text="Terima notifikasi saat Warta Jemaat terbaru muncul"
+            android:textColor="#000000" />
+    </FrameLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_nav">
+
         <WebView
             android:id="@+id/WebView1"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:visibility="visible">
+
         </WebView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
-    </ProgressBar>
+        android:layout_width="wrap_content" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black"
+        app:itemIconTint="@drawable/color_state"
+        app:itemTextColor="@drawable/color_state"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_bottom_nav" />
+
+
+
+
 
 
 </RelativeLayout>

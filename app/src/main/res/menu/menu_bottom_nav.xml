@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_library_books_white_24dp"
+        android:title="Warta"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/nav_regist"
+        android:icon="@drawable/ic_church"
+        android:title="Ibadah"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="Pengaturan"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/nav_exit"
+        android:icon="@drawable/ic_exit_white_24dp"
+        android:title="Keluar"
+        android:enabled="true"/>
+
+</menu>

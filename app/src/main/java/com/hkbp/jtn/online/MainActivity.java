@@ -5,7 +5,11 @@ package com.hkbp.jtn.online;
 //JIKA TEMAN-TEMAN KONTRIBUTOR INGIN MEMBUANG CODE YANG USELESS, MONGGO SILAHKAN.
 //TAPI JANGAN LUPA KASIH TAU APA YANG KALIAN HAPUS. MAULIATE.
 
+//ANYWAY, TADINYA INI MAINACTIVITY, NAMUN SUDAH DICONVERT MENJADI FRAGMENT KARENA MAU GAMAU WEBVIEW MENJADI
+//FRAGMENT (BUKAN ACTIVITY UTAMA) SETELAH APLIKASI INI DITAMBAHKAN BOTTOM NAVIGATION BAR.
+
 //APA AJA YANG PERLU DIIMPORT DI JAVA INI
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,7 +19,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -23,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
@@ -35,17 +39,24 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import static android.view.View.GONE;
 
 //CODINGNYA MULAI DARI SINI
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
@@ -61,16 +72,25 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private RelativeLayout mRootLayout;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private FrameLayout mFrameSettings;
+
+
+    private BottomNavigationView mMainNav;
+
     //CODING DI DALAM
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mMainNav = (BottomNavigationView) findViewById(R.id.main_nav);
+        mFrameSettings = (FrameLayout) findViewById(R.id.frame_settings);
+
 
         //NGASIH TAU YANG MANA YANG ADA DI LAYOUT
         webviewku = (WebView)findViewById(R.id.WebView1);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+
 
         //NGATUR WEBSETTING DAN WEBVIEW
         websettingku = webviewku.getSettings();
@@ -81,6 +101,78 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         websettingku.setDomStorageEnabled(true);
         websettingku.setLoadWithOverviewMode(true);
         websettingku.setUseWideViewPort(true);
+
+        //NAVBAR FRAME
+        mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+
+                    case R.id.nav_home:
+                        webviewku.setVisibility(View.VISIBLE);
+                        mFrameSettings.setVisibility(GONE);
+                        String url = webviewku.getUrl();
+                        if (url.contains("https://www.hkbpjtn.online/")) {
+                        return true;
+                    }
+                    else{
+                        webviewku.setVisibility(View.VISIBLE);
+                        mFrameSettings.setVisibility(GONE);
+                        webviewku.loadUrl("https://www.hkbpjtn.online/");
+                        return true;
+                    }
+
+                    case R.id.nav_regist:
+                        webviewku.setVisibility(View.VISIBLE);
+                        mFrameSettings.setVisibility(GONE);
+                        String url2 = webviewku.getUrl();
+                        if (url2.contains("http://daftar.hkbpjtn.online/")) {
+                        return true;
+                    }
+                    else{
+                        webviewku.setVisibility(View.VISIBLE);
+                        mFrameSettings.setVisibility(GONE);
+                        webviewku.loadUrl("http://daftar.hkbpjtn.online/");
+                        return true;
+                    }
+
+                    case R.id.nav_settings:
+                        mFrameSettings.setVisibility(View.VISIBLE);
+                        webviewku.setVisibility(View.GONE);
+                        return true;
+
+
+
+                    case R.id.nav_exit:
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("Apakah anda yakin ingin keluar?");
+                        builder.setCancelable(true);
+                        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
+
+                    default:
+                        return false;
+
+                }
+
+            }
+
+
+        });
 
         //WEB VIEW CLIENT
         webviewku.setWebViewClient(new WebViewClient() {
@@ -200,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     progressBar.setVisibility(View.VISIBLE);
                 }
                 if(newProgress==100){
-                    progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(GONE);
                 }
 
             }
@@ -215,7 +307,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     public void onBackPressed() {
         if(webviewku.canGoBack()) {
             webviewku.goBack();
-        } else {
+        }
+        else {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("Apakah anda yakin ingin keluar?");
                 builder.setCancelable(true);
@@ -232,7 +325,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     }
                 });
                 AlertDialog alertDialog = builder.create();
-                alertDialog.show();}
+                alertDialog.show();
+
+        }
     }
 
     //INI UNTUK CHECK PERMISSION, APAKAH READ/WRITE STORAGENYA DIPERBOLEHKAN
