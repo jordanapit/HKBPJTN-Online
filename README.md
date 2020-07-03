@@ -5,6 +5,11 @@ Make sure that you have YouTube App installed on your device.
 
 Changelog:
 
+0.9.0:
+- Added Bottom Navigation Bar.
+- Added "Registrasi Ibadah" section.
+- Added "Pengaturan" section.
+
 0.8.4.1:
 - Testing a new notification icon (not worked yet).
 
