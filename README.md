@@ -5,6 +5,9 @@ Make sure that you have YouTube App installed on your device.
 
 Changelog:
 
+0.9.0.1:
+- Change "Pengaturan" layout.
+
 0.9.0:
 - Added Bottom Navigation Bar.
 - Added "Registrasi Ibadah" section.
