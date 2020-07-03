@@ -14,19 +14,27 @@
         android:layout_height="fill_parent"
         android:layout_above="@id/main_nav"
         android:background="#FFFFFF"
-        android:visibility="gone">
+        android:visibility="visible">
 
+
+        <FrameLayout
+            android:id="@+id/background_doang"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="#5D7BCD">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
             android:layout_marginTop="9dp"
-            android:fontFamily="@font/assistant_bold"
+            android:fontFamily="@font/cinzel"
             android:text="Pengaturan"
-            android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textAlignment="center"/>
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -34,18 +42,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView2"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             android:checked="true"
             android:clickable="false"
+            android:fontFamily="@font/yantramanav"
             android:text="Terima notifikasi saat Warta Jemaat terbaru muncul"
             android:textColor="#000000" />
+
     </FrameLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/main_nav">
+        android:layout_above="@id/main_nav"
+        android:visibility="gone">
 
         <WebView
             android:id="@+id/WebView1"
