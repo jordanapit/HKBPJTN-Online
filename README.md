@@ -7,6 +7,7 @@ Changelog:
 
 0.9.1:
 - Probably the last Beta version before release.
+- New Key Stroke
 - Back to basic Webview with new link and new page.
 - Removed Navigation bar.
 - New Close Dialog.
