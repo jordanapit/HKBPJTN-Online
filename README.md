@@ -6,12 +6,13 @@ Make sure that you have YouTube App installed on your device.
 Changelog:
 
 0.9.1:
-- Probably a last Beta version before release
-- Back to basic Webview with new link and new page
-- Removed Navigation bar
-- New Close Dialog
-- Make sure that close dialog will be shown when the Webview opened the home page
-- Added Renungan Harian section
+- Probably the last Beta version before release.
+- Back to basic Webview with new link and new page.
+- Removed Navigation bar.
+- New Close Dialog.
+- Make sure that close dialog will be shown when the Webview opened the home page.
+- Added "Renungan Harian" section.
+- Removed "Pengaturan" section.
 
 0.9.0.1:
 - Change "Pengaturan" layout.
