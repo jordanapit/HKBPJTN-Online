@@ -34,7 +34,8 @@
             android:text="Pengaturan"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:gravity="center_horizontal" />
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -69,9 +70,10 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content" />
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/progress" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_nav"
@@ -82,7 +84,8 @@
         app:itemIconTint="@drawable/color_state"
         app:itemTextColor="@drawable/color_state"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_bottom_nav" />
+        app:menu="@menu/menu_bottom_nav"
+        android:visibility="gone"/>
 
 
 

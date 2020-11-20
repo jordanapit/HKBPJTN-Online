@@ -113,13 +113,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         webviewku.setVisibility(View.VISIBLE);
                         mFrameSettings.setVisibility(GONE);
                         String url = webviewku.getUrl();
-                        if (url.contains("https://www.hkbpjtn.online/")) {
+                        if (url.contains("https://hkbpjtn.web.id/mobile_app/")) {
                         return true;
                     }
                     else{
                         webviewku.setVisibility(View.VISIBLE);
                         mFrameSettings.setVisibility(GONE);
-                        webviewku.loadUrl("https://www.hkbpjtn.online/");
+                        webviewku.loadUrl("https://hkbpjtn.web.id/mobile_app/");
                         return true;
                     }
 
@@ -127,13 +127,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         webviewku.setVisibility(View.VISIBLE);
                         mFrameSettings.setVisibility(GONE);
                         String url2 = webviewku.getUrl();
-                        if (url2.contains("http://daftar.hkbpjtn.online/")) {
+                        if (url2.contains("https://hkbpjtn.web.id/mobile_app/#registrasi")) {
                         return true;
                     }
                     else{
                         webviewku.setVisibility(View.VISIBLE);
                         mFrameSettings.setVisibility(GONE);
-                        webviewku.loadUrl("http://daftar.hkbpjtn.online/");
+                        webviewku.loadUrl("https://hkbpjtn.web.id/mobile_app/#registrasi");
                         return true;
                     }
 
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         webviewku.setHapticFeedbackEnabled(false);
 
         //INI KUNCINYA! NGASIH TAU WEBVIEWNYA HARUS BUKA APA. KALAU KELAK WEBNYA HKBPJTN GANTI DOMAIN, INI JUGA HARUS DIGANTI
-        webviewku.loadUrl("https://www.hkbpjtn.online/");
+        webviewku.loadUrl("https://hkbpjtn.web.id/mobile_app/");
 
         //KEMAMPUAN UNTUK MENDOWNLOAD FILE; SEMENTARA WAKTU PDF WARTA KEUANGAN/WARTA JEMAAT MUSTI DIDOWNLOAD
         webviewku.setDownloadListener(new DownloadListener() {
@@ -305,11 +305,35 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     //INI UNTUK NGASIH PESAN KALAU KITA MAU KELUAR DARI APP
     @Override
     public void onBackPressed() {
+        String isiannya = webviewku.getUrl();
+            if (isiannya.matches("https://hkbpjtn.web.id/mobile_app/#")) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle);
+                builder.setMessage("Apakah anda yakin ingin keluar?");
+                builder.setCancelable(true);
+                builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+            else {
         if(webviewku.canGoBack()) {
             webviewku.goBack();
         }
-        else {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+
+
+            else {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle);
                 builder.setMessage("Apakah anda yakin ingin keluar?");
                 builder.setCancelable(true);
                 builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -327,10 +351,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
+            }
         }
     }
 
     //INI UNTUK CHECK PERMISSION, APAKAH READ/WRITE STORAGENYA DIPERBOLEHKAN
+    @RequiresApi(api = Build.VERSION_CODES.P)
     protected void checkPermission(){
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
@@ -340,6 +366,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     builder.setMessage("Write external storage permission is required.");
                     builder.setTitle("Please grant permission");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.P)
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             ActivityCompat.requestPermissions(
