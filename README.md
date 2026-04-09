@@ -1,4 +1,4 @@
-# HKBPJTN-Online
+# HKBPJTN Online (DISCONTINUED)
 
 Warning:
 Make sure that you have YouTube App installed on your device.
